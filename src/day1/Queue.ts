@@ -17,14 +17,11 @@ export default class Queue<T> {
         const node = {
             value: item,
         } as Node<T>;
-        if (!this.tail || this.length === 0) {
+        this.length++;
+        if (!this.tail) {
             this.tail = this.head = node;
-            this.length++;
-
             return;
         }
-        this.length++;
-        console.log(this);
         this.tail.next = node;
         this.tail = node;
     }
@@ -32,10 +29,15 @@ export default class Queue<T> {
         if (!this.head) {
             return undefined;
         }
-        this.length--;
-
         let head = this.head;
-        this.head = this.head.next;
+        if (this.length === 1) {
+            if (this.head) {
+                this.head = undefined;
+                this.tail = undefined;
+            }
+        }
+        this.head = this.head?.next;
+        this.length--;
         return head.value;
     }
     peek(): T | undefined {
