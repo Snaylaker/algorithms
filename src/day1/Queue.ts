@@ -31,10 +31,8 @@ export default class Queue<T> {
         }
         let head = this.head;
         if (this.length === 1) {
-            if (this.head) {
-                this.head = undefined;
-                this.tail = undefined;
-            }
+            this.head = undefined;
+            this.tail = undefined;
         }
         this.head = this.head?.next;
         this.length--;
